@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130330124546) do
+ActiveRecord::Schema.define(:version => 20130331143642) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -59,5 +59,17 @@ ActiveRecord::Schema.define(:version => 20130330124546) do
   end
 
   add_index "ecm_references_categories", ["parent_id"], :name => "index_ecm_references_categories_on_parent_id"
+
+  create_table "ecm_references_references", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "position"
+    t.string   "markup_language"
+    t.datetime "published_at"
+    t.string   "slug"
+    t.integer  "ecm_categories_category_id"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
 
 end

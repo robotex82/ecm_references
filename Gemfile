@@ -19,6 +19,10 @@ gem "jquery-rails"
 # Patched guard rails
 gem 'guard-rails',  :git => 'git://github.com/robotex82/guard-rails.git', :branch => 'better-engine-support'
 
+# Experimental
+gem 'active_admin-acts_as_list', :path => '~/rails/modules/active_admin-acts_as_list'
+gem 'active_admin-awesome_nested_set', :path => '~/rails/modules/active_admin-awesome_nested_set'
+
 unless ENV['TRAVIS_RUBY_VERSION'].nil?
   gem 'pg'
   gem 'mysql2'

@@ -1,40 +1,50 @@
-class Ecm::References::Category < ActiveRecord::Base
-self.table_name = 'ecm_references_categories'
+module Ecm::References
+  class Category < ActiveRecord::Base
+    self.table_name = 'ecm_references_categories'
 
-  # attributes
-  attr_accessible :description,
-                  :markup_language,
-                  :name,
-                  :parent_id,
-                  :slug
+    # associations
+    has_many :references, :foreign_key => :ecm_categories_category_id
 
-  # callbacks
-  after_initialize :set_defaults
+    # attributes
+    attr_accessible :description,
+                    :markup_language,
+                    :name,
+                    :parent_id,
+                    :slug
 
-  # friendly id support
-  extend FriendlyId
-  friendly_id :name, :use => :slugged
+    # callbacks
+    after_initialize :set_defaults
 
-  # markup support
-  acts_as_markup :language => :variable, :columns => [ :description ]
+    # friendly id support
+    extend FriendlyId
+    friendly_id :name, :use => :slugged
 
-  # nested set support
-  acts_as_nested_set
+    # markup support
+    acts_as_markup :language => :variable, :columns => [ :description ]
 
-  # validations
-  validates :name, :presence => true,
-                   :uniqueness => { :scope => [ :parent_id ] }
+    # nested set support
+    acts_as_nested_set
 
-  def to_s
-    name
-  end
+    # validations
+    validates :markup_language, :presence => true,
+                                :inclusion => Ecm::References::Configuration.markup_languages.map(&:to_s)
+    validates :name, :presence => true,
+                     :uniqueness => { :scope => [ :parent_id ] }
 
-  private
-
-  def set_defaults
-    if self.new_record?
-      self.markup_language ||= Ecm::References::Configuration.default_markup_language
+    def reference_count
+      references.count
     end
-  end
-end
 
+    def to_s
+      name
+    end # def
+
+    private
+
+    def set_defaults
+      if self.new_record?
+        self.markup_language ||= Ecm::References::Configuration.default_markup_language
+      end
+    end # def
+  end # class Category < ActiveRecord::Base
+end # module Ecm::References

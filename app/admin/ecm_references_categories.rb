@@ -26,25 +26,54 @@ ActiveAdmin.register Ecm::References::Category do
     selectable_column
     sortable_tree_columns
     sortable_tree_indented_column :name
+    column :reference_count
     column :created_at
     column :updated_at
     default_actions
   end # index
 
-  show do
+  show :title => :to_s do
     panel Ecm::References::Category.human_attribute_name(:description) do
       ecm_references_category.description
-    end
+    end # panel
+
+    panel Ecm::References::Category.human_attribute_name(:children) do
+      table_for ecm_references_category.descendants, :i18n => Ecm::References::Category do
+        sortable_tree_columns
+        sortable_tree_indented_column :name
+        column :reference_count
+        column :created_at
+        column :updated_at
+        column do |child|
+          link_to(I18n.t('active_admin.view'), [:admin, child], :class => "member_link view_link") +
+          link_to(I18n.t('active_admin.edit'), [:edit, :admin, child], :class => "member_link edit_link")
+        end
+      end # table_for
+    end # panel
+
+    panel Ecm::References::Category.human_attribute_name(:references) do
+      table_for ecm_references_category.references, :i18n => Ecm::References::Reference do
+        sortable_columns
+        column :name
+        column :published 
+        column :created_at
+        column :updated_at
+        column do |child|
+          link_to(I18n.t('active_admin.view'), [:admin, child], :class => "member_link view_link") +
+          link_to(I18n.t('active_admin.edit'), [:edit, :admin, child], :class => "member_link edit_link")
+        end
+      end # table_for
+    end # panel
   end # show
 
   sidebar Ecm::References::Category.human_attribute_name(:details), :only => :show do
     attributes_table_for ecm_references_category do
       row :parent
       row :name
-      row :markup_language
-      row :depth
+      row :reference_count
       row :created_at
       row :updated_at
     end
   end # sidebar
-end
+end # ActiveAdmin.register Ecm::References::Category
+
