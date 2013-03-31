@@ -1,1 +1,23 @@
 de:
+  activerecord:
+    models:
+      ecm/references/category:
+        one: Referenzkategorie
+        other: Referenzkategorien
+    attributes:
+      ecm/references/category:
+        created_at: Erstellt am
+        depth: Baumtiefe
+        description: Beschreibung
+        details: Details
+        markup_language: Markup Sprache
+        name: Name
+        parent: Übergeordnete Kategorie
+        slug: Freundliche ID
+        updated_at: Aktualisiert am
+  ecm:
+    references:
+      active_admin:
+        menu: Referenzen
+  resources:
+    ecm_references_categories: referenz-kategorien
