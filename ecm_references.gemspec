@@ -16,12 +16,15 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
 
   s.add_dependency "rails", "~> 3.2.13"
-  # s.add_dependency "active_admin-acts_as_list"
-  # s.add_dependency "active_admin-awesome_nested_set"
-  s.add_dependency "acts_as_list"
+  s.add_dependency "rails_tools-absence_validator"
+  s.add_dependency "active_admin-acts_as_list", ">= 0.0.7"
+  s.add_dependency "active_admin-awesome_nested_set", ">= 0.0.5"
+  s.add_dependency "acts_as_list", "< 0.3.0"
   s.add_dependency "acts_as_markup"
-  s.add_dependency "acts_as_published"  
+  s.add_dependency "acts_as_published"
   s.add_dependency "awesome_nested_set"
+  s.add_dependency "awesome_nested_set-tools"
+  s.add_dependency "ecm_pictures", ">= 1.0.6.pre"
   s.add_dependency "friendly_id"
 
   # Development Database
@@ -35,9 +38,13 @@ Gem::Specification.new do |s|
 
   # Dummy app
   s.add_development_dependency 'activeadmin'
-  s.add_development_dependency 'sass-rails'
   s.add_development_dependency 'coffee-rails'
+  s.add_development_dependency 'ecm_lightbox'
   s.add_development_dependency 'i18n_routing'
+  s.add_development_dependency 'less-rails'
+  s.add_development_dependency 'sass-rails'
+  s.add_development_dependency 'therubyracer'
+  s.add_development_dependency 'twitter-bootstrap-rails'
 
   # Localization
   s.add_development_dependency 'localeapp'

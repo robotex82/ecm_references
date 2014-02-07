@@ -13,5 +13,10 @@ Ecm::References.configure do |config|
   #
   # default: config.new_references_published_by_default = false
   config.new_references_published_by_default = false
+
+  # Number of characters to render in reference preview
+  #
+  # default: config.news_preview_length = 250
+  config.reference_preview_length = 250
 end
 

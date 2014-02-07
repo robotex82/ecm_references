@@ -11,6 +11,7 @@ ActiveAdmin.register Ecm::References::Category do
     end # f.inputs
 
     f.inputs do
+      f.input :locale, :as => :select, :collection => I18n.available_locales.map(&:to_s)
       f.input :name
       f.input :description
     end # f.inputs
@@ -26,6 +27,7 @@ ActiveAdmin.register Ecm::References::Category do
     selectable_column
     sortable_tree_columns
     sortable_tree_indented_column :name
+    column :locale
     column :reference_count
     column :created_at
     column :updated_at
@@ -41,6 +43,7 @@ ActiveAdmin.register Ecm::References::Category do
       table_for ecm_references_category.descendants, :i18n => Ecm::References::Category do
         sortable_tree_columns
         sortable_tree_indented_column :name
+        column :locale
         column :reference_count
         column :created_at
         column :updated_at
@@ -54,6 +57,9 @@ ActiveAdmin.register Ecm::References::Category do
     panel Ecm::References::Category.human_attribute_name(:references) do
       table_for ecm_references_category.references, :i18n => Ecm::References::Reference do
         sortable_columns
+        column :preview_picture do |reference|
+          image_tag(reference.preview_picture_image_url(:small_thumb)) unless reference.preview_picture_image_url(:small_thumb).nil?
+        end
         column :name
         column :published 
         column :created_at
@@ -70,6 +76,7 @@ ActiveAdmin.register Ecm::References::Category do
     attributes_table_for ecm_references_category do
       row :parent
       row :name
+      row :locale
       row :reference_count
       row :created_at
       row :updated_at

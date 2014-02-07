@@ -3,6 +3,7 @@ class CreateEcmReferencesCategories < ActiveRecord::Migration
     create_table :ecm_references_categories do |t|
       t.string :name
       t.text :description
+      t.string :locale
 
       # acts as markup
       t.string :markup_language

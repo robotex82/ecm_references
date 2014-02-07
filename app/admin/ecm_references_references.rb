@@ -21,11 +21,20 @@ ActiveAdmin.register Ecm::References::Reference do
       f.input :markup_language, :as => :select, :collection => Ecm::References::Configuration.markup_languages.map(&:to_s)
     end # f.inputs
 
+    form_inputs_for_pictureable(f)
+
     f.actions
+
+#    f.inputs do
+#      span do f.object.errors.inspect end
+#    end
   end # form
 
   index do
     selectable_column
+    column :preview_picture do |reference|
+      image_tag(reference.preview_picture_image_url(:small_thumb)) unless reference.preview_picture_image_url(:small_thumb).nil?
+    end
     column :category
     column :name
     column :published
@@ -38,6 +47,8 @@ ActiveAdmin.register Ecm::References::Reference do
     panel Ecm::References::Reference.human_attribute_name(:description) do
       ecm_references_reference.description
     end # panel
+
+    panel_for_pictureable
   end # show
 
   sidebar Ecm::References::Reference.human_attribute_name(:details), :only => :show do

@@ -16,6 +16,9 @@ module Ecm::References
 
     mattr_accessor :new_references_published_by_default
     @@new_references_published_by_default = false
+
+    mattr_accessor :reference_preview_length
+    @@reference_preview_length = nil
   end # module Configuration
 end # module Ecm::References
 

@@ -31,6 +31,7 @@ feature 'Ecm::References::Category admin' do
   end
 
   def fill_new_form
+    select 'en', :from => 'ecm_references_category[locale]'
     fill_in 'ecm_references_category[name]', :with => 'Example category'
   end
 

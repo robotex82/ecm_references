@@ -28,6 +28,24 @@ module Ecm::References
     end # describe 'markup'
 
     describe 'public methods' do
+      describe '#preview_picture' do
+        subject { FactoryGirl.create(:ecm_references_reference_with_pictures)  }
+
+        it 'should return the first picture' do
+          subject.preview_picture.should eq(subject.pictures.first)
+        end
+      end # describe '#preview_picture'
+
+      describe '#preview_picture_image_url' do
+        describe 'for a reference without attached picture' do
+          subject { FactoryGirl.create(:ecm_references_reference)  }
+
+          it 'should return nil' do
+            subject.preview_picture_image_url.should eq(nil)
+          end
+        end # describe 'for a reference without attached picture'
+      end # describe '#preview_picture_image_url'
+
       describe '#to_s' do
         subject { FactoryGirl.create(:ecm_references_reference, :name => 'Example reference')  }
 
